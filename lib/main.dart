@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'viaggio.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const App());
 
-class MyApp extends StatelessWidget {
-        const MyApp({super.key});
+class App extends StatelessWidget {
+        const App({super.key});
         
         // This widget is the root of your application.
         @override
@@ -13,21 +14,21 @@ class MyApp extends StatelessWidget {
                         theme: ThemeData(
                                 colorScheme: .fromSeed(seedColor: Colors.orangeAccent),
                         ),
-                        home: const MyHomePage(title: 'I tuoi viaggi'),
+                        home: const HomePage(title: 'I tuoi viaggi'),
                 );
         }
 }
 
-class MyHomePage extends StatefulWidget {
-        const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget {
+        const HomePage({super.key, required this.title});
 
         final String title;
 
         @override
-        State<MyHomePage> createState() => _MyHomePageState();
+        State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
         final List<Text> _viaggi = [];
 
         void _addViaggio() {
@@ -48,7 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 itemBuilder: (context, index) => ListTile(title: _viaggi[index]),
                         ),
                         floatingActionButton: FloatingActionButton(
-                                onPressed: _addViaggio,
+                                onPressed: () {
+                                        Navigator.push(
+                                                context,
+                                                MaterialPageRoute<void>(
+                                                        builder: (constext) => const Viaggio()
+                                                )
+                                        );
+                                },
                                 tooltip: 'Aggiungi Viaggio',
                                 child: const Icon(Icons.add),
                         ),
