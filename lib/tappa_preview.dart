@@ -15,6 +15,13 @@ class TappaPreview extends StatefulWidget {
 class _TappaPreviewState extends State<TappaPreview> {
         @override
         Widget build(BuildContext context) {
-                return TextField(decoration: InputDecoration(hintText: 'Tappa'));
+                return TextField(
+                        decoration: InputDecoration(
+                                hintText: 'Tappa',
+                                hintStyle: TextStyle(
+                                        color: Colors.black26
+                                )
+                        )
+                );
         }
 }

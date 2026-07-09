@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'viaggio.dart';
+import 'edit_page.dart';
 
 void main() => runApp(const App());
 
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                                         Navigator.push(
                                                 context,
                                                 MaterialPageRoute<void>(
-                                                        builder: (constext) => const Viaggio()
+                                                        builder: (constext) => const EditPage()
                                                 )
                                         );
                                 },

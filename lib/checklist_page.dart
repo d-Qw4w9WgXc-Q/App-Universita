@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'tappa_preview.dart';
+import 'checklist_punto.dart';
 
-class Tappe extends StatefulWidget {
-        const Tappe({super.key});
+class ChecklistPage extends StatefulWidget {
+        const ChecklistPage({super.key});
 
         @override
-        State<Tappe> createState() => _TappeState();
+        State<ChecklistPage> createState() => _ChecklistPageState();
 }
 
-
-class _TappeState extends State<Tappe> {
-        final List<TappaPreview> _tappe = [];
+class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveClientMixin {
+        List<ChecklistPunto> _punti = [];
 
         @override
         Widget build(BuildContext context) {
+                super.build(context);
                 return Scaffold(
                         appBar: AppBar(
                                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                                title: Text('Tappe'),
+                                title: Text('Checklist'),
                         ),
                         body: ReorderableListView.builder(
                                 buildDefaultDragHandles: false,
-                                itemCount: _tappe.length,
+                                itemCount: _punti.length,
                                 itemBuilder: (context, index) => ListTile(
-                                        title: _tappe[index],
-                                        key: ObjectKey(_tappe[index].id),
+                                        title: _punti[index],
+                                        key: ObjectKey(_punti[index].id),
 
                                         trailing: ReorderableDragStartListener(
                                                 index: index,
@@ -40,19 +40,22 @@ class _TappeState extends State<Tappe> {
                                 onReorderItem: (int oldIndex, int newIndex) {
                                         setState(() {
 
-                                                final item = _tappe.removeAt(oldIndex);
-                                                _tappe.insert(newIndex, item);
+                                                final item = _punti.removeAt(oldIndex);
+                                                _punti.insert(newIndex, item);
                                         });
                                 }
                         ),
                         floatingActionButton: FloatingActionButton(
                                 onPressed: () {
                                         setState(() {
-                                                _tappe.add(TappaPreview());
+                                                _punti.add(ChecklistPunto());
                                         });
                                 },
                                 child: Icon(Icons.add)
                         ),
                 );
         }
+
+        @override
+        bool get wantKeepAlive => true;
 }

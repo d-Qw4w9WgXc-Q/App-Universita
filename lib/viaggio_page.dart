@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'campo_testo.dart';
-import 'tappe.dart';
 
-class Viaggio extends StatefulWidget {
-        const Viaggio({super.key});
+class ViaggioPage extends StatefulWidget {
+        const ViaggioPage({super.key});
 
         @override
-        State<StatefulWidget> createState() => _ViaggioState();
+        State<StatefulWidget> createState() => _ViaggioPageState();
 }
 
-class _ViaggioState extends State<Viaggio> {
+class _ViaggioPageState extends State<ViaggioPage> with AutomaticKeepAliveClientMixin {
         @override
         Widget build(BuildContext context) {
+                super.build(context);
                 return Scaffold(
                         appBar: AppBar(
                                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -27,17 +27,9 @@ class _ViaggioState extends State<Viaggio> {
                                         ]
                                 )
                         ),
-                        floatingActionButton: FloatingActionButton(
-                                onPressed: () {
-                                        Navigator.push(context, 
-                                                MaterialPageRoute<void>(
-                                                        builder: (context) => Tappe()
-                                                )
-                                        );
-                                },
-                                tooltip: 'Continua',
-                                child: Icon(Icons.keyboard_double_arrow_right)
-                        )
                 );
         }
+
+        @override
+        bool get wantKeepAlive => true;
 }
