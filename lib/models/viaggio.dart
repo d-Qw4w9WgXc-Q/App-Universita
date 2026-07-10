@@ -1,6 +1,6 @@
 class Viaggio {
         int? id;
-        String? titolo;
+        String titolo;
         String? destinazione;
         DateTime? inizio;
         DateTime? fine;
@@ -8,7 +8,8 @@ class Viaggio {
         bool stato;
         double? budget;
 
-        Viaggio({this.id,
+        Viaggio({
+                this.id,
                 required this.titolo,
                 this.destinazione,
                 this.inizio,
@@ -19,7 +20,8 @@ class Viaggio {
         });
 
         Map<String, dynamic> toMap(){
-                return {'id': id,
+                return {
+                        'id': id,
                         'titolo': titolo,
                         'destinazione': destinazione,
                         'inizio': inizio?.toIso8601String(),

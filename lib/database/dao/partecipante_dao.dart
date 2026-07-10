@@ -2,7 +2,7 @@ import '../../models/partecipante.dart';
 import '../database_helper.dart';
 import '../tables/partecipante_table.dart';
 
-class ViaggioDao {
+class PartecipanteDao {
 
         Future<int> insert(Partecipante partecipante) async {
                 final db = await DatabaseHelper.instance.database;
