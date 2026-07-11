@@ -23,7 +23,7 @@ class TappaDao {
                         where: 'viaggio_id = ?',
                         whereArgs: [viaggioId]
                 );
-                return result.map((e) => Tappa.fromMap(e)).toList();
+                return result.map((map) => Tappa.fromMap(map)).toList();
         }
 
         Future<int> countByViaggio(int viaggioId) async {

@@ -1,7 +1,6 @@
 import '../../models/viaggio.dart';
 import '../database_helper.dart';
 import '../tables/viaggio_table.dart';
-import '../tables/partecipazione_table.dart';
 
 class ViaggioDao {
 
