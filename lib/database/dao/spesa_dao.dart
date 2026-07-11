@@ -1,6 +1,8 @@
 import '../../models/spesa.dart';
 import '../database_helper.dart';
 import '../tables/spesa_table.dart';
+import 'package:sqflite/sqflite.dart';
+
 
 class SpesaDao {
 
@@ -28,6 +30,18 @@ class SpesaDao {
                         ,[attivitaId]
                 );
                 return result.map((map) => Spesa.fromMap(map)).toList();
+        }
+
+        Future<int> countByAttivita(int attivitaId) async {
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        'SELECT COUNT(*)
+                        FROM spesa WHERE attivita_id = ?'
+                        ''',
+                        [attivitaId]
+                );
+                return Sqflite.firstIntValue(result) ?? 0;
         }
 
         Future<int> update(Spesa spesa) async {
