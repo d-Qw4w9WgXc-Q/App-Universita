@@ -21,12 +21,12 @@ class ViaggioDao {
                 final result = await db.rawQuery(
                         '''
                         select v.*
-                        from ? v
-                        join ? p
+                        from viaggi v
+                        join partecipazioni p
                         on v.id = p.viaggio_id
                         where p.partecipante_id = ?
                         '''
-                        ,[ViaggioTable.tableName, PartecipazioneTable.tableName ,partecipanteId]
+                        ,[partecipanteId]
                 );
                 return result.map((map) => Viaggio.fromMap(map)).toList();
         }

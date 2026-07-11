@@ -1,6 +1,7 @@
 import '../../models/tappa.dart';
 import '../database_helper.dart';
 import '../tables/tappa_table.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TappaDao {
 
@@ -16,13 +17,25 @@ class TappaDao {
         }
 
         Future<List<Tappa>> getByViaggio(int viaggioId) async {
-        final db = await DatabaseHelper.instance.database;
-        final result = await db.query(
-                TappaTable.tableName,
-                where: 'viaggio_id = ?',
-                whereArgs: [viaggioId],
-        );
-        return result.map((e) => Tappa.fromMap(e)).toList();
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.query(
+                        TappaTable.tableName,
+                        where: 'viaggio_id = ?',
+                        whereArgs: [viaggioId]
+                );
+                return result.map((e) => Tappa.fromMap(e)).toList();
+        }
+
+        Future<int> countByViaggio(int viaggioId) async {
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        'SELECT COUNT(*)
+                        FROM tappe WHERE viaggio_id = ?'
+                        ''',
+                        [viaggioId]
+                );
+                return Sqflite.firstIntValue(result) ?? 0;
         }
 
         Future<int> update(Tappa tappa) async {
