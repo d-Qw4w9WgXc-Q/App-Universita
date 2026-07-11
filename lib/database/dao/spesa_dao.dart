@@ -15,6 +15,21 @@ class SpesaDao {
                 return result.map((map) => Spesa.fromMap(map)).toList();
         }
 
+        Future<List<Spesa>> getByAttivita(int attivitaId) async{
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        select s.*
+                        from spese s
+                        join attivita a
+                        on a.id = s.attivita_id
+                        where a.id = ?
+                        '''
+                        ,[attivitaId]
+                );
+                return result.map((map) => Spesa.fromMap(map)).toList();
+        }
+
         Future<int> update(Spesa spesa) async {
                 final db = await DatabaseHelper.instance.database;
                 return db.update(SpesaTable.tableName, spesa.toMap(), where: 'id = ?', whereArgs: [spesa.id]);

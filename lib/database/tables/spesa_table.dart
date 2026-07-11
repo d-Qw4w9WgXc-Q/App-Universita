@@ -13,6 +13,7 @@ class SpesaTable {
                                 data text,
                                 viaggio_id text not null,
                                 tappa_id integer not null,
+                                attivita_id integer not null,
                                 metodo_pagamento text,
                                 stato integer not null default 0,
                                 foreign key (viaggio_id, tappa_id) references tappa(viaggio_id, id)
