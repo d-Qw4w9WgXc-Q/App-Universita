@@ -16,7 +16,7 @@ class AttivitaDao {
                 return result.map((map) => Attivita.fromMap(map)).toList();
         }
 
-                Future<List<Attivita>> getByTappa(int tappaId) async {
+        Future<List<Attivita>> getByTappa(int tappaId) async {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.query(
                         AttivitaTable.tableName,

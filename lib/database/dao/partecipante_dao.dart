@@ -15,6 +15,21 @@ class PartecipanteDao {
                 return result.map((map) => Partecipante.fromMap(map)).toList();
         }
 
+        Future<List<Partecipante>> getByViaggio(int viaggioId) async{
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        select p.*
+                        from partecipanti p
+                        join partecipazioni pa
+                        on p.id = pa.partecipante_id
+                        where pa.viaggio_id = ?
+                        '''
+                        ,[viaggioId]
+                );
+                return result.map((map) => Partecipante.fromMap(map)).toList();
+        }
+
         Future<int> update(Partecipante partecipante) async {
                 final db = await DatabaseHelper.instance.database;
                 return db.update(PartecipanteTable.tableName, partecipante.toMap(), where: 'id = ?', whereArgs: [partecipante.id],);

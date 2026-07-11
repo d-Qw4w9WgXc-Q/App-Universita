@@ -1,6 +1,7 @@
 import '../../models/partecipazione.dart';
 import '../database_helper.dart';
 import '../tables/partecipazione_table.dart';
+import 'package:sqflite/sqflite.dart';
 
 class PartecipazioneDao {
 
@@ -13,6 +14,19 @@ class PartecipazioneDao {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.query(PartecipazioneTable.tableName);
                 return result.map((map) => Partecipazione.fromMap(map)).toList();
+        }
+
+        Future<int> countByViaggio(int viaggioId) async {
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        'SELECT COUNT(*)
+                        FROM partecipazioni
+                        WHERE viaggio_id = ?'
+                        ''',
+                        [viaggioId]
+                );
+                return Sqflite.firstIntValue(result) ?? 0;
         }
 
         Future<int> update(Partecipazione partecipazione) async {
