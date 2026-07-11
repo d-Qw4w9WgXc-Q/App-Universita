@@ -8,7 +8,7 @@ class SpesaTable {
                         create table $tableName(
                                 id integer primary key,
                                 titolo text not null,
-                                importo integer,
+                                importo real,
                                 categoria text,
                                 data text,
                                 viaggio_id text not null,

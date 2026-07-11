@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class Partecipante {
         int? id;
         String? nome;
