@@ -15,6 +15,16 @@ class TappaDao {
                 return result.map((map) => Tappa.fromMap(map)).toList();
         }
 
+        Future<List<Tappa>> getByViaggio(int viaggioId) async {
+        final db = await DatabaseHelper.instance.database;
+        final result = await db.query(
+                TappaTable.tableName,
+                where: 'viaggio_id = ?',
+                whereArgs: [viaggioId],
+        );
+        return result.map((e) => Tappa.fromMap(e)).toList();
+        }
+
         Future<int> update(Tappa tappa) async {
                 final db = await DatabaseHelper.instance.database;
                 return db.update(TappaTable.tableName, tappa.toMap(), where: 'id = ?', whereArgs: [tappa.id]);

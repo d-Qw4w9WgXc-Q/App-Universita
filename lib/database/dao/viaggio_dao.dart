@@ -1,6 +1,7 @@
 import '../../models/viaggio.dart';
 import '../database_helper.dart';
 import '../tables/viaggio_table.dart';
+import '../tables/partecipazione_table.dart';
 
 class ViaggioDao {
 
@@ -12,6 +13,21 @@ class ViaggioDao {
         Future<List<Viaggio>> getAll() async {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.query(ViaggioTable.tableName);
+                return result.map((map) => Viaggio.fromMap(map)).toList();
+        }
+
+        Future<List<Viaggio>> getByPartecipante(int partecipanteId) async{
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        select v.*
+                        from ? v
+                        join ? p
+                        on v.id = p.viaggio_id
+                        where p.partecipante_id = ?
+                        '''
+                        ,[ViaggioTable.tableName, PartecipazioneTable.tableName ,partecipanteId]
+                );
                 return result.map((map) => Viaggio.fromMap(map)).toList();
         }
 
