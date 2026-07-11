@@ -32,6 +32,25 @@ class SpesaDao {
                 return result.map((map) => Spesa.fromMap(map)).toList();
         }
 
+        Future<List<Spesa>> getByViaggio(int viaggioId) async{
+                final db = await DatabaseHelper.instance.database;
+                final result = await db.rawQuery(
+                        '''
+                        select s.*
+                        from spese s
+                        join attivita a
+                        on a.id = s.attivita_id
+                        join tappa t
+                        on t.id = a.tappa_id
+                        join viaggio v
+                        on v.id = t.viaggio_id
+                        where v.id = ?
+                        '''
+                        ,[viaggioId]
+                );
+                return result.map((map) => Spesa.fromMap(map)).toList();
+        }
+
         Future<int> countByAttivita(int attivitaId) async {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.rawQuery(
