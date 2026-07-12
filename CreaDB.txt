@@ -1,0 +1,71 @@
+drop table if exists viaggio cascade;
+drop table if exists partecipante cascade;
+drop table if exists partecipa;
+drop table if exists tappa cascade;
+drop table if exists attivita;
+drop table if exists spesa;
+
+
+create table viaggio(
+	titolo varchar(30) primary key,
+	destinazione varchar(30),
+	inizio date,
+	fine date,
+	descrizione varchar(500),
+	stato bool default false,
+	budget integer
+);
+
+create table partecipante(
+	id integer primary key,
+	nome varchar(20) not null,
+	cognome varchar(20)
+);
+
+create table partecipa(
+	partecipante integer not null,
+	viaggio varchar(30) not null,
+	foreign key (partecipante) references partecipante(id),
+	foreign key (viaggio) references viaggio(titolo)
+);
+
+create table tappa(
+	viaggio varchar(30) not null,
+	titolo varchar(30) not null,
+	data date,
+	luogo varchar(30),
+	descrizione varchar(500),
+	n_tappa integer not null,
+	foreign key (viaggio) references viaggio(titolo),
+	primary key(viaggio, n_tappa)
+);
+
+create table attivita(
+	viaggio varchar(30) not null,
+	n_tappa integer not null,
+	titolo varchar(30) not null,
+	descrizione varchar(200),
+	data date,
+	ora_inizio time,
+	ora_fine time,
+	luogo varchar(30),
+	categoria varchar(20),
+	costo integer,
+	stato bool default false,
+	foreign key (viaggio, n_tappa) references tappa(viaggio, n_tappa),
+	primary key(titolo, viaggio, n_tappa)
+);
+
+create table spesa(
+	titolo varchar(30) not null,
+	importo integer,
+	categoria varchar(30),
+	data date,
+	viaggio varchar(30) not null,
+	n_tappa integer not null,
+	metodo_pagamento varchar(10),
+	stato bool default false,
+	foreign key (viaggio, n_tappa) references tappa(viaggio, n_tappa),
+	primary key (titolo, viaggio, n_tappa)
+);
+
