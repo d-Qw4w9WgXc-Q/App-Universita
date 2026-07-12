@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'checklist_punto.dart';
-import 'empty_page.dart';
+import 'package:viaggiare/widgets/checklist_punto.dart';
+import 'package:viaggiare/widgets/empty_page.dart';
 
 class ChecklistPage extends StatefulWidget {
         const ChecklistPage({super.key});

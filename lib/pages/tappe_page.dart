@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'tappa_preview.dart';
-import 'empty_page.dart';
+import 'package:viaggiare/widgets/tappa_preview.dart';
+import 'package:viaggiare/widgets/empty_page.dart';
 
 class TappePage extends StatefulWidget {
         const TappePage({super.key});

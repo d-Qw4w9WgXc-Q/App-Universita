@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'campo_testo.dart';
+import 'package:viaggiare/widgets/campo_testo.dart';
 
 class ViaggioPage extends StatefulWidget {
         const ViaggioPage({super.key});

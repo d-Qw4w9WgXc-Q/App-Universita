@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tappa_menu.dart';
+import 'package:viaggiare/pages/tappa_menu.dart';
 
 class TappaPreview extends StatefulWidget {
         late final UniqueKey id;

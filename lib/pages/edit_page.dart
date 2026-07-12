@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'tappe_page.dart';
-import 'viaggio_page.dart';
-import 'checklist_page.dart';
+import 'package:viaggiare/pages/tappe_page.dart';
+import 'package:viaggiare/pages/viaggio_page.dart';
+import 'package:viaggiare/pages/checklist_page.dart';
 
 class EditPage extends StatefulWidget {
         const EditPage({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'edit_page.dart';
-import 'empty_page.dart';
+import 'pages/edit_page.dart';
+import 'widgets/empty_page.dart';
 
 void main() => runApp(const App());
 
