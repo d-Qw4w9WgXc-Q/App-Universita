@@ -19,15 +19,6 @@ class _ChecklistPuntoState extends State<ChecklistPunto> {
         Widget build(BuildContext context) {
                 return Row(
                         children: [
-                                Checkbox(
-                                        value: _checked,
-                                        onChanged: (bool? newValue) {
-                                                setState(() {
-                                                        _checked = newValue ?? false;
-                                                        }
-                                                );
-                                        }
-                                ),
                                 Expanded(
                                         child: TextField(
                                                 decoration: InputDecoration(
@@ -37,7 +28,16 @@ class _ChecklistPuntoState extends State<ChecklistPunto> {
                                                         )
                                                 )
                                         )
-                                )
+                                ),
+                                Checkbox(
+                                        value: _checked,
+                                        onChanged: (bool? newValue) {
+                                                setState(() {
+                                                        _checked = newValue ?? false;
+                                                        }
+                                                );
+                                        }
+                                ),
                         ]
                 );
         }

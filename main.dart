@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'edit_page.dart';
-import 'empty_page.dart';
 
 void main() => runApp(const App());
 
@@ -34,7 +33,7 @@ class _HomePageState extends State<HomePage> {
 
         void _addViaggio() {
                 setState(() {
-                        _viaggi.add(Text('culo'));
+                        
                 });
         }
         
@@ -45,12 +44,7 @@ class _HomePageState extends State<HomePage> {
                                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                                 title: Text(widget.title),
                         ),
-                        body: _viaggi.isEmpty ?
-                        EmptyPage(
-                                icon: Icons.flight_takeoff,
-                                text: 'Non hai ancora nessun viaggio',
-                        ) :
-                        ListView.builder(
+                        body: ListView.builder(
                                 itemCount: _viaggi.length,
                                 itemBuilder: (context, index) => ListTile(title: _viaggi[index]),
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'checklist_punto.dart';
+import 'empty_page.dart';
 
 class ChecklistPage extends StatefulWidget {
         const ChecklistPage({super.key});
@@ -9,7 +10,7 @@ class ChecklistPage extends StatefulWidget {
 }
 
 class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveClientMixin {
-        List<ChecklistPunto> _punti = [];
+        final List<ChecklistPunto> _punti = [];
 
         @override
         Widget build(BuildContext context) {
@@ -19,14 +20,20 @@ class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveCl
                                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                                 title: Text('Checklist'),
                         ),
-                        body: ReorderableListView.builder(
+                        body: _punti.isEmpty?
+                        EmptyPage(
+                                icon: Icons.check_box_outlined,
+                                text: 'Aggiungi punti...'
+                        ) :
+                        ReorderableListView.builder(
+                                padding: EdgeInsets.only(bottom: 200),
                                 buildDefaultDragHandles: false,
                                 itemCount: _punti.length,
                                 itemBuilder: (context, index) => ListTile(
                                         title: _punti[index],
                                         key: ObjectKey(_punti[index].id),
 
-                                        trailing: ReorderableDragStartListener(
+                                        leading: ReorderableDragStartListener(
                                                 index: index,
                                                 child: Listener(
                                                         onPointerDown: (_) {
@@ -45,14 +52,27 @@ class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveCl
                                         });
                                 }
                         ),
-                        floatingActionButton: FloatingActionButton(
-                                onPressed: () {
-                                        setState(() {
-                                                _punti.add(ChecklistPunto());
-                                        });
-                                },
-                                child: Icon(Icons.add)
-                        ),
+                        floatingActionButton: Padding(
+                                padding: EdgeInsets.only(bottom: 40, right: 6),
+                                child: Column(
+                                        mainAxisAlignment: .end,
+                                        children: [
+                                                FloatingActionButton(
+                                                        onPressed: () {},
+                                                        child: Icon(Icons.save)
+                                                ),
+                                                const SizedBox(height: 12),
+                                                FloatingActionButton(
+                                                        onPressed: () {
+                                                                setState(() {
+                                                                        _punti.add(ChecklistPunto());
+                                                                });
+                                                        },
+                                                        child: Icon(Icons.add)
+                                                )
+                                        ]
+                                )
+                        )
                 );
         }
 

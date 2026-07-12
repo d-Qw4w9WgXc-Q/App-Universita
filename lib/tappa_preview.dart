@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'tappa_menu.dart';
 
 class TappaPreview extends StatefulWidget {
         late final UniqueKey id;
@@ -15,13 +16,36 @@ class TappaPreview extends StatefulWidget {
 class _TappaPreviewState extends State<TappaPreview> {
         @override
         Widget build(BuildContext context) {
-                return TextField(
-                        decoration: InputDecoration(
-                                hintText: 'Tappa',
-                                hintStyle: TextStyle(
-                                        color: Colors.black26
+                return Row(
+                        children: [
+                                Expanded(
+                                        child: TextField(
+                                                decoration: InputDecoration(
+                                                        hintText: 'Tappa',
+                                                        hintStyle: TextStyle(
+                                                                color: Colors.black26
+                                                        )
+                                                )
+                                        )
+                                ),
+                                IconButton(
+                                        onPressed: () {
+                                                Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute<void>(
+                                                                builder: (constext) => const TappaMenu()
+                                                        )
+                                                );
+                                        },
+                                        icon: CircleAvatar(
+                                                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                                                child: Icon(
+                                                        Icons.open_in_new,
+                                                        color: Colors.black26,
+                                                )
+                                        )
                                 )
-                        )
+                        ]
                 );
         }
 }

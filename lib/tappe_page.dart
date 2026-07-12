@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tappa_preview.dart';
+import 'empty_page.dart';
 
 class TappePage extends StatefulWidget {
         const TappePage({super.key});
@@ -20,14 +21,20 @@ class _TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixi
                                 backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                                 title: Text('Tappe'),
                         ),
-                        body: ReorderableListView.builder(
+                        body: _tappe.isEmpty ?
+                        EmptyPage(
+                                icon: Icons.flag_outlined,
+                                text: 'Aggiungi tappe...'
+                        ) :
+                        ReorderableListView.builder(
+                                padding: EdgeInsets.only(bottom: 120),
                                 buildDefaultDragHandles: false,
                                 itemCount: _tappe.length,
                                 itemBuilder: (context, index) => ListTile(
                                         title: _tappe[index],
                                         key: ObjectKey(_tappe[index].id),
 
-                                        trailing: ReorderableDragStartListener(
+                                        leading: ReorderableDragStartListener(
                                                 index: index,
                                                 child: Listener(
                                                         onPointerDown: (_) {
@@ -36,6 +43,8 @@ class _TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixi
                                                         child:Icon(Icons.drag_handle)
                                                 )
                                         ),
+
+                                        contentPadding: EdgeInsets.only(left: 8, right: 4)
                                 ),
 
                                 onReorderItem: (int oldIndex, int newIndex) {
@@ -46,14 +55,17 @@ class _TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixi
                                         });
                                 }
                         ),
-                        floatingActionButton: FloatingActionButton(
-                                onPressed: () {
-                                        setState(() {
-                                                _tappe.add(TappaPreview());
-                                        });
-                                },
-                                child: Icon(Icons.add)
-                        ),
+                        floatingActionButton: Padding(
+                                padding: EdgeInsets.only(bottom: 40, right: 6),
+                                child: FloatingActionButton(
+                                        onPressed: () {
+                                                setState(() {
+                                                        _tappe.add(TappaPreview());
+                                                });
+                                        },
+                                        child: Icon(Icons.add)
+                                ),
+                        )
                 );
         }
 
