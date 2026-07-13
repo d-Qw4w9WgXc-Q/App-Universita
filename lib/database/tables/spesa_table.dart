@@ -12,7 +12,6 @@ class SpesaTable {
                                 categoria text,
                                 data text,
                                 viaggio_id text not null,
-                                tappa_id integer not null,
                                 attivita_id integer not null,
                                 metodo_pagamento text,
                                 stato integer not null default 0,

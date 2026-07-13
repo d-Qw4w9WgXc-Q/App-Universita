@@ -38,12 +38,8 @@ class SpesaDao {
                         '''
                         select s.*
                         from spese s
-                        join attivita a
-                        on a.id = s.attivita_id
-                        join tappa t
-                        on t.id = a.tappa_id
                         join viaggio v
-                        on v.id = t.viaggio_id
+                        on v.id = s.viaggio_id
                         where v.id = ?
                         '''
                         ,[viaggioId]

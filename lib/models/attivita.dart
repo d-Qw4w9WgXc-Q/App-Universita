@@ -1,7 +1,6 @@
 class Attivita {
         int? id;
         int viaggioId;
-        int tappaId;
         String titolo;
         String? descrizione;
         DateTime? inizio;
@@ -14,7 +13,6 @@ class Attivita {
         Attivita({
                 this.id,
                 required this.viaggioId,
-                required this.tappaId,
                 required this.titolo,
                 this.descrizione,
                 this.inizio,
@@ -29,7 +27,6 @@ class Attivita {
                 return {
                         'id': id,
                         'viaggio_id': viaggioId,
-                        'tappa_id': tappaId,
                         'titolo': titolo,
                         'descrizione': descrizione,
                         'inizio': inizio?.toIso8601String(),
@@ -45,7 +42,6 @@ class Attivita {
                 return Attivita(
                         id: map['id'],
                         viaggioId: map['viaggio_id'],
-                        tappaId: map['tappa_id'],
                         titolo: map['titolo'],
                         descrizione: map['descrizione'],
                         inizio: map['inizio'] != null ? DateTime.parse(map['inizio']) : null,

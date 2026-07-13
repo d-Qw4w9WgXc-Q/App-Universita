@@ -16,24 +16,24 @@ class AttivitaDao {
                 return result.map((map) => Attivita.fromMap(map)).toList();
         }
 
-        Future<List<Attivita>> getByTappa(int tappaId) async {
+        Future<List<Attivita>> getByViaggio(int viaggioId) async {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.query(
                         AttivitaTable.tableName,
-                        where: 'tappa_id = ?',
-                        whereArgs: [tappaId]
+                        where: 'viaggio_id = ?',
+                        whereArgs: [viaggioId]
                 );
                 return result.map((map) => Attivita.fromMap(map)).toList();
         }
 
-        Future<int> countByTappa(int tappaId) async {
+        Future<int> countByViaggio(int viaggioId) async {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.rawQuery(
                         '''
                         'SELECT COUNT(*)
-                        FROM attivita WHERE tappa_id = ?'
+                        FROM attivita WHERE viaggio_id = ?'
                         ''',
-                        [tappaId]
+                        [viaggioId]
                 );
                 return Sqflite.firstIntValue(result) ?? 0;
         }

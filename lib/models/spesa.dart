@@ -5,7 +5,6 @@ class Spesa {
         String? categoria;
         DateTime? data;
         int viaggioId;
-        int tappaId;
         int attivitaId;
         String? metodoPagamento;
         bool stato;
@@ -17,7 +16,6 @@ class Spesa {
                 this.categoria,
                 this.data,
                 required this.viaggioId,
-                required this.tappaId,
                 required this.attivitaId,
                 this.metodoPagamento,
                 this.stato = false
@@ -31,7 +29,6 @@ class Spesa {
                         'categoria': categoria,
                         'data': data?.toIso8601String(),
                         'viaggio_id': viaggioId,
-                        'tappa_id': tappaId,
                         'attivita_id': attivitaId,
                         'metodo_pagamento': metodoPagamento,
                         'stato': stato ? 1 : 0
@@ -46,7 +43,6 @@ class Spesa {
                         categoria: map['categoria'],
                         data: map['data'] != null ? DateTime.parse(map['data']) : null,
                         viaggioId: map['viaggio_id'],
-                        tappaId: map['tappa_id'],
                         attivitaId: map['attivita_id'],
                         metodoPagamento: map['metodo_pagamento'],
                         stato: map['stato'] == 1
