@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ChecklistPunto extends StatefulWidget {
-        late final UniqueKey id;
 
-        ChecklistPunto({super.key}) {
-                id = UniqueKey();
-        }
+        const ChecklistPunto({super.key});
 
         @override
         State<ChecklistPunto> createState() => _ChecklistPuntoState();

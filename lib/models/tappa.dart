@@ -1,6 +1,6 @@
 class Tappa {
         int? id;
-        int viaggioId;
+        int? viaggioId;
         String titolo;
         DateTime? data;
         String? luogo;
@@ -8,7 +8,7 @@ class Tappa {
 
         Tappa({
                 this.id,
-                required this.viaggioId,
+                this.viaggioId,
                 required this.titolo,
                 this.data,
                 this.luogo,

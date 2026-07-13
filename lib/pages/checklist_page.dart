@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'checklist_punto.dart';
-import 'empty_page.dart';
+import 'package:viaggiare/widgets/checklist_punto.dart';
+import 'package:viaggiare/widgets/empty_page.dart';
 
 class ChecklistPage extends StatefulWidget {
         const ChecklistPage({super.key});
 
         @override
-        State<ChecklistPage> createState() => _ChecklistPageState();
+        State<ChecklistPage> createState() => ChecklistPageState();
 }
 
-class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveClientMixin {
+class ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveClientMixin {
         final List<ChecklistPunto> _punti = [];
 
         @override
@@ -31,7 +31,7 @@ class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveCl
                                 itemCount: _punti.length,
                                 itemBuilder: (context, index) => ListTile(
                                         title: _punti[index],
-                                        key: ObjectKey(_punti[index].id),
+                                        key: _punti[index].key,
 
                                         leading: ReorderableDragStartListener(
                                                 index: index,
@@ -58,14 +58,9 @@ class _ChecklistPageState extends State<ChecklistPage> with AutomaticKeepAliveCl
                                         mainAxisAlignment: .end,
                                         children: [
                                                 FloatingActionButton(
-                                                        onPressed: () {},
-                                                        child: Icon(Icons.save)
-                                                ),
-                                                const SizedBox(height: 12),
-                                                FloatingActionButton(
                                                         onPressed: () {
                                                                 setState(() {
-                                                                        _punti.add(ChecklistPunto());
+                                                                        _punti.add(ChecklistPunto(key: UniqueKey()));
                                                                 });
                                                         },
                                                         child: Icon(Icons.add)

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'edit_page.dart';
-import 'empty_page.dart';
+import 'package:viaggiare/models/viaggio.dart';
+import 'package:viaggiare/widgets/viaggio_preview.dart';
+import 'pages/edit_page.dart';
+import 'widgets/empty_page.dart';
 
 void main() => runApp(const App());
 
@@ -30,11 +32,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-        final List<Text> _viaggi = [];
+        final List<ViaggioPreview> _viaggi = [];
 
-        void _addViaggio() {
+        void _addViaggio({required Viaggio viaggio}) {
                 setState(() {
-                        _viaggi.add(Text('culo'));
+                        _viaggi.add(
+                                ViaggioPreview(
+                                        key: UniqueKey(),
+                                        viaggio: viaggio
+                                )
+                        );
                 });
         }
         
@@ -50,16 +57,41 @@ class _HomePageState extends State<HomePage> {
                                 icon: Icons.flight_takeoff,
                                 text: 'Non hai ancora nessun viaggio',
                         ) :
-                        ListView.builder(
+                        
+                        ReorderableListView.builder(
+                                padding: EdgeInsets.only(bottom: 200),
+                                buildDefaultDragHandles: false,
                                 itemCount: _viaggi.length,
-                                itemBuilder: (context, index) => ListTile(title: _viaggi[index]),
+                                itemBuilder: (context, index) => ListTile(
+                                        title: _viaggi[index],
+                                        key: _viaggi[index].key,
+
+                                        leading: ReorderableDragStartListener(
+                                                index: index,
+                                                child: Listener(
+                                                        onPointerDown: (_) {
+                                                                FocusManager.instance.primaryFocus?.unfocus();
+                                                        },
+                                                        child:Icon(Icons.drag_handle)
+                                                )
+                                        ),
+                                ),
+
+                                onReorderItem: (int oldIndex, int newIndex) {
+                                        setState(() {
+
+                                                final item = _viaggi.removeAt(oldIndex);
+                                                _viaggi.insert(newIndex, item);
+                                        });
+                                }
                         ),
                         floatingActionButton: FloatingActionButton(
+                                heroTag: 'main_add',
                                 onPressed: () {
                                         Navigator.push(
                                                 context,
                                                 MaterialPageRoute<void>(
-                                                        builder: (constext) => const EditPage()
+                                                        builder: (constext) => EditPage(onSave: _addViaggio)
                                                 )
                                         );
                                 },

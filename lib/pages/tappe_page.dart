@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'tappa_preview.dart';
-import 'empty_page.dart';
+import 'package:viaggiare/models/tappa.dart';
+import 'package:viaggiare/widgets/tappa_preview.dart';
+import 'package:viaggiare/widgets/empty_page.dart';
 
 class TappePage extends StatefulWidget {
         const TappePage({super.key});
 
         @override
-        State<TappePage> createState() => _TappePageState();
+        State<TappePage> createState() => TappePageState();
 }
 
 
-class _TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixin {
+class TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixin {
         final List<TappaPreview> _tappe = [];
+
+        // TODO List<Tappa> get tappe => 
 
         @override
         Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixi
                                 itemCount: _tappe.length,
                                 itemBuilder: (context, index) => ListTile(
                                         title: _tappe[index],
-                                        key: ObjectKey(_tappe[index].id),
+                                        key: _tappe[index].key,
 
                                         leading: ReorderableDragStartListener(
                                                 index: index,
@@ -60,7 +63,7 @@ class _TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixi
                                 child: FloatingActionButton(
                                         onPressed: () {
                                                 setState(() {
-                                                        _tappe.add(TappaPreview());
+                                                        _tappe.add(TappaPreview(key: UniqueKey()));
                                                 });
                                         },
                                         child: Icon(Icons.add)
