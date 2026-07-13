@@ -1,29 +1,29 @@
-import '../../models/attivita.dart';
+import '../../models/punto.dart';
 import '../database_helper.dart';
-import '../tables/attivita_table.dart';
+import '../tables/punto_table.dart';
 import 'package:sqflite/sqflite.dart';
 
-class AttivitaDao {
+class PuntoDao {
 
-        Future<int> insert(Attivita attivita) async {
+        Future<int> insert(Punto punto) async {
                 final db = await DatabaseHelper.instance.database;
-                return db.insert(AttivitaTable.tableName, attivita.toMap());
+                return db.insert(PuntoTable.tableName, punto.toMap());
         }
 
-        Future<List<Attivita>> getAll() async {
+        Future<List<Punto>> getAll() async {
                 final db = await DatabaseHelper.instance.database;
-                final result = await db.query(AttivitaTable.tableName);
-                return result.map((map) => Attivita.fromMap(map)).toList();
+                final result = await db.query(PuntoTable.tableName);
+                return result.map((map) => Punto.fromMap(map)).toList();
         }
 
-        Future<List<Attivita>> getByViaggio(int viaggioId) async {
+        Future<List<Punto>> getByViaggio(int viaggioId) async {
                 final db = await DatabaseHelper.instance.database;
                 final result = await db.query(
-                        AttivitaTable.tableName,
+                        PuntoTable.tableName,
                         where: 'viaggio_id = ?',
                         whereArgs: [viaggioId]
                 );
-                return result.map((map) => Attivita.fromMap(map)).toList();
+                return result.map((map) => Punto.fromMap(map)).toList();
         }
 
         Future<int> countByViaggio(int viaggioId) async {
@@ -31,21 +31,21 @@ class AttivitaDao {
                 final result = await db.rawQuery(
                         '''
                         'SELECT COUNT(*)
-                        FROM attivita WHERE viaggio_id = ?'
+                        FROM punti WHERE viaggio_id = ?'
                         ''',
                         [viaggioId]
                 );
                 return Sqflite.firstIntValue(result) ?? 0;
         }
 
-        Future<int> update(Attivita attivita) async {
+        Future<int> update(Punto punto) async {
                 final db = await DatabaseHelper.instance.database;
-                return db.update(AttivitaTable.tableName, attivita.toMap(), where: 'id = ?', whereArgs: [attivita.id]);
+                return db.update(PuntoTable.tableName, punto.toMap(), where: 'id = ?', whereArgs: [punto.id]);
         }
 
         Future<int> delete(int id) async {
                 final db = await DatabaseHelper.instance.database;
-                return db.delete(AttivitaTable.tableName, where: 'id = ?', whereArgs: [id]);
+                return db.delete(PuntoTable.tableName, where: 'id = ?', whereArgs: [id]);
         }
 
 }
