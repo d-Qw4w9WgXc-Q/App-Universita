@@ -20,10 +20,6 @@ class _EditPageState extends State<EditPage> with TickerProviderStateMixin {
         int _pageIndex = 0;
         int get pageIndex => _pageIndex;
 
-        final GlobalKey<ViaggioPageState> _viaggioKey = GlobalKey();
-        final GlobalKey<TappePageState> _tappeKey = GlobalKey();
-        final GlobalKey<ChecklistPageState> _checklistKey = GlobalKey();
-
         @override
         void initState() {
                 super.initState();
@@ -49,9 +45,9 @@ class _EditPageState extends State<EditPage> with TickerProviderStateMixin {
                                                 controller: _pageViewController,
                                                 onPageChanged: _handlePageViewChanged,
                                                 children: [
-                                                        ViaggioPage(key: _viaggioKey),
-                                                        TappePage(key: _tappeKey),
-                                                        ChecklistPage(key: _checklistKey)
+                                                        ViaggioPage(),
+                                                        TappePage(),
+                                                        ChecklistPage()
                                                 ]
                                         ),
                                         Padding(
@@ -67,13 +63,8 @@ class _EditPageState extends State<EditPage> with TickerProviderStateMixin {
                         floatingActionButton: FloatingActionButton(
                                 heroTag: 'edit_save',
                                 onPressed: () {
-                                        Viaggio? viaggio = _viaggioKey.currentState?.viaggio;
 
-                                        if(viaggio != null && viaggio.titolo != '') {
-
-                                                // TODO salva nel database usando le key per accedere ai membri
-
-                                                widget.onSave(viaggio: viaggio);
+                                                // widget.onSave(viaggio: viaggio);
                                                 Navigator.pop(context);
                                         }
                                 },

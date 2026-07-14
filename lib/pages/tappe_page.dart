@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:viaggiare/models/tappa.dart';
 import 'package:viaggiare/widgets/tappa_preview.dart';
 import 'package:viaggiare/widgets/empty_page.dart';
 
@@ -13,8 +12,6 @@ class TappePage extends StatefulWidget {
 
 class TappePageState extends State<TappePage> with AutomaticKeepAliveClientMixin {
         final List<TappaPreview> _tappe = [];
-
-        // TODO List<Tappa> get tappe => 
 
         @override
         Widget build(BuildContext context) {
