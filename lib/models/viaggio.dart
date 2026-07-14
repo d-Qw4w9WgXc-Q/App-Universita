@@ -1,47 +1,81 @@
 class Viaggio {
-        int? id;
+        String id;
         String titolo;
-        String? destinazione;
-        DateTime? inizio;
-        DateTime? fine;
-        String? descrizione;
-        bool stato;
-        double? budget;
+        String destinazione;
+        DateTime dataInizio;
+        DateTime dataFine;
+        String descrizione;
+        String stato; // 'Futuro', 'In Corso', 'Completato', 'Archiviato'
+        double budget;
+        List<String> partecipanti;
+        String infoGenerali;
 
         Viaggio({
-                this.id,
+                required this.id,
                 required this.titolo,
-                this.destinazione,
-                this.inizio,
-                this.fine,
-                this.descrizione,
-                this.stato = false,
-                this.budget
+                required this.destinazione,
+                required this.dataInizio,
+                required this.dataFine,
+                required this.descrizione,
+                required this.stato,
+                required this.budget,
+                required this.partecipanti,
+                required this.infoGenerali,
         });
 
-        Map<String, dynamic> toMap(){
+        Map<String, dynamic> toJson() {
                 return {
                         'id': id,
                         'titolo': titolo,
                         'destinazione': destinazione,
-                        'inizio': inizio?.toIso8601String(),
-                        'fine': fine?.toIso8601String(),
+                        'dataInizio': dataInizio.toIso8601String(),
+                        'dataFine': dataFine.toIso8601String(),
                         'descrizione': descrizione,
-                        'stato': stato ? 1 : 0,
-                        'budget': budget
+                        'stato': stato,
+                        'budget': budget,
+                        'partecipanti': partecipanti,
+                        'infoGenerali': infoGenerali,
                 };
         }
 
-        factory Viaggio.fromMap(Map<String, dynamic> map) {
+        factory Viaggio.fromJson(Map<String, dynamic> json) {
                 return Viaggio(
-                        id: map['id'],
-                        titolo: map['titolo'],
-                        destinazione: map['destinazione'],
-                        inizio: map['inizio'] != null ? DateTime.parse(map['inizio']) : null,
-                        fine: map['fine'] != null ? DateTime.parse(map['fine']) : null,
-                        descrizione: map['descrizione'],
-                        stato: map['stato'] == 1,
-                        budget: map['budget']?.toDouble()
+                        id: json['id'] ?? '',
+                        titolo: json['titolo'] ?? '',
+                        destinazione: json['destinazione'] ?? '',
+                        dataInizio: DateTime.parse(json['dataInizio']),
+                        dataFine: DateTime.parse(json['dataFine']),
+                        descrizione: json['descrizione'] ?? '',
+                        stato: json['stato'] ?? 'Futuro',
+                        budget: (json['budget'] ?? 0.0).toDouble(),
+                        partecipanti: List<String>.from(json['partecipanti'] ?? []),
+                        infoGenerali: json['infoGenerali'] ?? '',
+                );
+        }
+
+        Viaggio copyWith({
+                String? id,
+                String? titolo,
+                String? destinazione,
+                DateTime? dataInizio,
+                DateTime? dataFine,
+                String? descrizione,
+                String? stato,
+                double? budget,
+                List<String>? partecipanti,
+                String? infoGenerali,
+        }) {
+                return Viaggio(
+                        id: id ?? this.id,
+                        titolo: titolo ?? this.titolo,
+                        destinazione: destinazione ?? this.destinazione,
+                        dataInizio: dataInizio ?? this.dataInizio,
+                        dataFine: dataFine ?? this.dataFine,
+                        descrizione: descrizione ?? this.descrizione,
+                        stato: stato ?? this.stato,
+                        budget: budget ?? this.budget,
+                        partecipanti: partecipanti ?? this.partecipanti,
+                        infoGenerali: infoGenerali ?? this.infoGenerali,
                 );
         }
 }

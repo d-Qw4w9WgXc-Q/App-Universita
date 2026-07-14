@@ -1,55 +1,81 @@
 class Spesa {
-        int? id;
+        String id;
+        String viaggioId;
+        String? attivitaId; // Collegamento facoltativo
         String titolo;
-        double? importo;
-        String? categoria;
-        DateTime? data;
-        int viaggioId;
-        int tappaId;
-        int attivitaId;
-        String? metodoPagamento;
-        bool stato;
+        double importo;
+        String categoria; // 'Cibo', 'Trasporti', 'Alloggio', 'Attività', 'Altro'
+        DateTime data;
+        String metodoPagamento; // 'Carta', 'Contanti'
+        String tipo; // 'Prevista', 'Effettiva'
+        String note;
 
         Spesa({
-                this.id,
-                required this.titolo,
-                this.importo,
-                this.categoria,
-                this.data,
+                required this.id,
                 required this.viaggioId,
-                required this.tappaId,
-                required this.attivitaId,
-                this.metodoPagamento,
-                this.stato = false
+                this.attivitaId,
+                required this.titolo,
+                required this.importo,
+                required this.categoria,
+                required this.data,
+                required this.metodoPagamento,
+                required this.tipo,
+                required this.note,
         });
 
-        Map<String, dynamic> toMap(){
+        Map<String, dynamic> toJson() {
                 return {
                         'id': id,
+                        'viaggioId': viaggioId,
+                        'attivitaId': attivitaId,
                         'titolo': titolo,
                         'importo': importo,
                         'categoria': categoria,
-                        'data': data?.toIso8601String(),
-                        'viaggio_id': viaggioId,
-                        'tappa_id': tappaId,
-                        'attivita_id': attivitaId,
-                        'metodo_pagamento': metodoPagamento,
-                        'stato': stato ? 1 : 0
+                        'data': data.toIso8601String(),
+                        'metodoPagamento': metodoPagamento,
+                        'tipo': tipo,
+                        'note': note,
                 };
         }
 
-        factory Spesa.fromMap(Map<String, dynamic> map) {
+        factory Spesa.fromJson(Map<String, dynamic> json) {
                 return Spesa(
-                        id: map['id'],
-                        titolo: map['titolo'],
-                        importo: map['importo'],
-                        categoria: map['categoria'],
-                        data: map['data'] != null ? DateTime.parse(map['data']) : null,
-                        viaggioId: map['viaggio_id'],
-                        tappaId: map['tappa_id'],
-                        attivitaId: map['attivita_id'],
-                        metodoPagamento: map['metodo_pagamento'],
-                        stato: map['stato'] == 1
+                        id: json['id'] ?? '',
+                        viaggioId: json['viaggioId'] ?? '',
+                        attivitaId: json['attivitaId'],
+                        titolo: json['titolo'] ?? '',
+                        importo: (json['importo'] ?? 0.0).toDouble(),
+                        categoria: json['categoria'] ?? 'Altro',
+                        data: DateTime.parse(json['data']),
+                        metodoPagamento: json['metodoPagamento'] ?? 'Contanti',
+                        tipo: json['tipo'] ?? 'Effettiva',
+                        note: json['note'] ?? '',
+                );
+        }
+
+        Spesa copyWith({
+                String? id,
+                String? viaggioId,
+                String? attivitaId,
+                String? titolo,
+                double? importo,
+                String? categoria,
+                DateTime? data,
+                String? metodoPagamento,
+                String? tipo,
+                String? note,
+        }) {
+                return Spesa(
+                        id: id ?? this.id,
+                        viaggioId: viaggioId ?? this.viaggioId,
+                        attivitaId: attivitaId ?? this.attivitaId,
+                        titolo: titolo ?? this.titolo,
+                        importo: importo ?? this.importo,
+                        categoria: categoria ?? this.categoria,
+                        data: data ?? this.data,
+                        metodoPagamento: metodoPagamento ?? this.metodoPagamento,
+                        tipo: tipo ?? this.tipo,
+                        note: note ?? this.note,
                 );
         }
 }

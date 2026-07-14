@@ -1,39 +1,69 @@
 class Tappa {
-        int? id;
-        int? viaggioId;
+        String id;
+        String viaggioId;
         String titolo;
-        DateTime? data;
-        String? luogo;
-        String? descrizione;
+        DateTime data;
+        String localita;
+        String descrizione;
+        int ordine;
+        String note;
 
         Tappa({
-                this.id,
-                this.viaggioId,
+                required this.id,
+                required this.viaggioId,
                 required this.titolo,
-                this.data,
-                this.luogo,
-                this.descrizione
+                required this.data,
+                required this.localita,
+                required this.descrizione,
+                required this.ordine,
+                required this.note,
         });
 
-        Map<String, dynamic> toMap(){
+        Map<String, dynamic> toJson() {
                 return {
                         'id': id,
-                        'viaggio_id': viaggioId,
+                        'viaggioId': viaggioId,
                         'titolo': titolo,
-                        'data': data?.toIso8601String(),
-                        'luogo': luogo,
-                        'descrizione': descrizione
+                        'data': data.toIso8601String(),
+                        'localita': localita,
+                        'descrizione': descrizione,
+                        'ordine': ordine,
+                        'note': note,
                 };
         }
 
-        factory Tappa.fromMap(Map<String, dynamic> map) {
+        factory Tappa.fromJson(Map<String, dynamic> json) {
                 return Tappa(
-                        id: map['id'],
-                        viaggioId: map['viaggio_id'],
-                        titolo: map['titolo'],
-                        data: map['data'] != null ? DateTime.parse(map['data']) : null,
-                        luogo: map['luogo'],
-                        descrizione: map['descrizione']
+                        id: json['id'] ?? '',
+                        viaggioId: json['viaggioId'] ?? '',
+                        titolo: json['titolo'] ?? '',
+                        data: DateTime.parse(json['data']),
+                        localita: json['localita'] ?? '',
+                        descrizione: json['descrizione'] ?? '',
+                        ordine: json['ordine'] ?? 0,
+                        note: json['note'] ?? '',
+                );
+        }
+
+        Tappa copyWith({
+                String? id,
+                String? viaggioId,
+                String? titolo,
+                DateTime? data,
+                String? localita,
+                String? descrizione,
+                int? ordine,
+                String? note,
+        }) {
+                return Tappa(
+                        id: id ?? this.id,
+                        viaggioId: viaggioId ?? this.viaggioId,
+                        titolo: titolo ?? this.titolo,
+                        data: data ?? this.data,
+                        localita: localita ?? this.localita,
+                        descrizione: descrizione ?? this.descrizione,
+                        ordine: ordine ?? this.ordine,
+                        note: note ?? this.note,
                 );
         }
 }
